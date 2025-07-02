@@ -9,6 +9,8 @@ tk.resizable(False, False)
 label = Label(text = 'OnePailas', font = ('Arial', 14))
 label.pack()
 
+tk.wm_iconbitmap(True, 'calc.ico')
+
 def active_entry(entry_widget):
     entry_widget.focus_set()
 
