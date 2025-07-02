@@ -1,18 +1,13 @@
 from tkinter import *
 from tkinter import ttk, Tk
-from tkinter import Entry, font
 
 tk = Tk()
 tk.title('Calcutor py')
 tk.geometry('400x600+720+200')
 tk.resizable(False, False)
 
-tk.iconbitmap('calc.ico')
-
 label = Label(text = 'OnePailas', font = ('Arial', 14))
 label.pack()
-
-expression = ''
 
 def active_entry(entry_widget):
     entry_widget.focus_set()
@@ -23,22 +18,26 @@ def finish():
 tk.protocol('WM_DELETE_WINDOW', finish)
 
 def pl_and_mn():
-    entry.insert(END, ' - ')
-    if entry.get().count(' - ') >= 2:
-        entry.delete(0, END)
+    en = str(entry.get())
+    if en == '1 / ' or en == '0.' or en == ' - ' or en.count(' - ') > 1:
+        entry.insert(END, '')
+    else:
+        entry.insert(END, ' - ')
 
 def null():
-    entry.insert(END, '0')
+    if str(entry.get()) == '1 / ':
+        entry.insert(END, '')
+    else:
+        entry.insert(END, '0')
 
 def tochka():
-    if str(entry.get()) == '':
+    en = str(entry.get())
+    if en == '':
         entry.insert(END, '0.')
-        if entry.get().count('0.') >= 1:
-            entry.delete(0, END)
+    elif en == ' - ' or en == '1 / ' or en.count('.') > 2 or en == '0.':
+        entry.insert(END, '')
     else:
         entry.insert(END, '.')
-        if entry.get().count('.') > 1:
-            entry.delete(0, END)
 
 def btn_res():
     result = eval(entry.get())
@@ -46,109 +45,124 @@ def btn_res():
     entry.delete(0, END)
     entry.insert(0, result)
 
-def button_1():  # истинная функция
+def button_1():
     entry.insert(END, '1')
     en = str(entry.get())
-    if en[0] == '0':
+    if en[0] == '0' and en[1] != '.':
         entry.delete(0, END)
-
+        entry.insert(END, '1')
+    
 def btn_2():
     entry.insert(END, '2')
     en = str(entry.get())
-    if en[0] == '0':
+    if en[0] == '0' and en[1] != '.':
         entry.delete(0, END)
+        entry.insert(END, '2')
 
 def btn_3():
     entry.insert(END, '3')
     en = str(entry.get())
-    if en[0] == '0':
+    if en[0] == '0' and en[1] != '.':
         entry.delete(0, END)
+        entry.insert(END, '3')
 
 def btn_plus():
-    entry.insert(END, ' + ')
     en = str(entry.get())
-    if en[1] == '+' or en.count('+') > 1:
-        entry.delete(0, END)
+    if en[1] == '+' or en.count('+') > 1 or en == '1 / ' or en == ' - ' or en == '0.':
+        entry.insert(END, '')
+    else:
+        entry.insert(END, ' + ')
 
 def btn_4():
     entry.insert(END, '4')
     en = str(entry.get())
-    if en[0] == '0':
+    if en[0] == '0' and en[1] != '.':
         entry.delete(0, END)
+        entry.insert(END, '4')
 
 def btn_5():
     entry.insert(END, '5')
     en = str(entry.get())
-    if en[0] == '0':
+    if en[0] == '0' and en[1] != '.':
         entry.delete(0, END)
+        entry.insert(END, '5')
 
 def btn_6():
     entry.insert(END, '6')
     en = str(entry.get())
-    if en[0] == '0':
+    if en[0] == '0' and en[1] != '.':
         entry.delete(0, END)
+        entry.insert(END, '6')
 
 def btn_minus():
-    entry.insert(END, ' - ')
     en = str(entry.get())
-    if en[3] == '-' or en.count('-') > 2:
-        entry.delete(0, END)
+    if en == ' - ' or en.count('-') >= 2 or en == '1 / ' or en == '0.':
+        entry.insert(END, '')
+    else:
+        entry.insert(END, ' - ')
 
 def btn_7():
     entry.insert(END, '7')
     en = str(entry.get())
-    if en[0] == '0':
+    if en[0] == '0' and en[1] != '.':
         entry.delete(0, END)
+        entry.insert(END, '7')
 
 def btn_8():
     entry.insert(END, '8')
     en = str(entry.get())
-    if en[0] == '0':
+    if en[0] == '0' and en[1] != '.':
         entry.delete(0, END)
+        entry.insert(END, '8')
 
 def btn_9():
     entry.insert(END, '9')
     en = str(entry.get())
-    if en[0] == '0':
+    if en[0] == '0' and en[1] != '.':
         entry.delete(0, END)
+        entry.insert(END, '9')
 
 def btn_multipy():
-    entry.insert(END, ' * ')
     en = str(entry.get())
-    if entry.get().count(' * ') >= 2 and en == '' and en != '':
-        entry.delete(0, END)
-    if en[1] == '*' or en.count('*') > 1:
-        entry.delete(0, END)
+    if en == '' or en.count('*') >= 1 or en == '1 / ' or en == ' - ' or en == '0.':
+        entry.insert(END, '')
+    else:
+        entry.insert(END, ' * ')
 
 def one_and_x():
-    entry.insert(END, '1 / ')
-    if entry.get().count('1 / ') >= 2:
+    en = str(entry.get())
+    if en == '':
+        entry.insert(END, '1 / ')
+    elif en != '' or en.count('1 / ') > 0:
         entry.delete(0, END)
+        entry.insert(END, '1 / ')
+    else:
+        entry.insert(END, '1 / ')
 
 def x_stepen():
-    if entry.get() == '':
+    en = str(entry.get())
+    if en == '' or en.count(' ** ') > 0 or en == '1 / ' or en == ' - ' or en == '0.':
         entry.insert(END, '')
-    else:
+    else: 
         entry.insert(END, ' ** ')
-        if entry.get().count(' ** ') >= 2:
-            entry.delete(0, END)
+
 
 def koren():
-    if entry.get() == '':
+    en = str(entry.get())
+    if en == '1 / ' or en == '' or en == ' - ' or en == '0.':
         entry.insert(END, '')
     else:
-        en = entry.get()
         entry.insert(END, ' ** 0.5')
-        if entry.get().count(' ** 0.5') >= 2:
-            entry.delete(0, END)
+        if en.count(' ** 0.5') > 0:
+            entry.delete(END, '')
 
 def div():
-    entry.insert(END, ' // ')
     en = str(entry.get())
-    if en[1] == '//' or en.count(' // ') > 1:
-        print('Error')
-        entry.delete(0, END)
-    
+    if en == '' or en.count(' / ') > 0 or en == '1 / ' or en == ' - ' or en == '0.':
+        entry.insert(END, '')
+    else:
+        entry.insert(END, ' / ')
+
 def btn_ce():
     entry.delete(0, END)
 
@@ -221,7 +235,7 @@ button_x_kvadrat.place(x = 100, y = 225, width = 100, height = 75)
 button_x_koren = ttk.Button(text = '√x', command = koren)
 button_x_koren.place(x = 200, y = 225, width = 100, height = 75)
 
-button_divide = ttk.Button(text = '//', command = div)
+button_divide = ttk.Button(text = '/', command = div)
 button_divide.place(x = 300, y = 225, width = 100, height = 75)
 
 button_ce = ttk.Button(text = 'CE', command = btn_ce)
@@ -233,6 +247,6 @@ button_c.place(x = 100, y = 150, width = 100, height = 75)
 button_delete = ttk.Button(text = '⌫', command = btn_backs)
 button_delete.place(x = 200, y = 150, width = 200, height = 75)
 
-ttk.Style().configure('.', font = ('Arial', 16), foreground = 'black', background = 'white')
+ttk.Style().configure('.', font = ('Arial', 16), foreground = 'black')
 
 tk.mainloop()
